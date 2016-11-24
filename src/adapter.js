@@ -315,10 +315,12 @@ var createSpecFilter = function (config, jasmineEnv) {
 function createStartFn (karma, jasmineEnv) {
   // This function will be assigned to `window.__karma__.start`:
   return function () {
-    jasmineEnv = jasmineEnv || window.jasmine.getEnv()
+    document.addEventListener('DOMContentLoaded', function handleDOMContentLoaded() {
+      jasmineEnv = jasmineEnv || window.jasmine.getEnv()
 
-    jasmineEnv.addReporter(new KarmaReporter(karma, jasmineEnv))
-    jasmineEnv.execute()
+      jasmineEnv.addReporter(new KarmaReporter(karma, jasmineEnv))
+      jasmineEnv.execute()
+    })
   }
 }
 
